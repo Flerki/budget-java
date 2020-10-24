@@ -28,9 +28,10 @@ public class BackUpConfiguration {
         }, 0, 1, DAYS);
     }
 
-    public BackUpService backUpService(BackUpProperties backUpProperties) {
+    public BackUpService backUpService(BackUpProperties backUpProperties, ExpenseProperties expenseProperties) {
         final String pathToBackUpDir = backUpProperties.getPathToBackUpDir();
         final Path path = Paths.get(pathToBackUpDir);
-        return new DefaultBackUpService(path, backUpProperties.getBackupFileDatePattern());
+        final Path pathToExpenseFile = Paths.get(expenseProperties.getPathToExpenseFile());
+        return new DefaultBackUpService(path, pathToExpenseFile, backUpProperties.getBackupFileDatePattern());
     }
 }
