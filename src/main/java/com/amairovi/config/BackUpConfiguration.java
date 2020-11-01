@@ -32,6 +32,6 @@ public class BackUpConfiguration {
         final String pathToBackUpDir = backUpProperties.getPathToBackUpDir();
         final Path path = Paths.get(pathToBackUpDir);
         final Path pathToExpenseFile = Paths.get(expenseProperties.getPathToExpenseFile());
-        return new DefaultBackUpService(path, pathToExpenseFile, backUpProperties.getBackupFileDatePattern());
+        return new DefaultBackUpService(path, pathToExpenseFile);
     }
 }

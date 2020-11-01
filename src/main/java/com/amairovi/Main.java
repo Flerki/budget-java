@@ -6,6 +6,7 @@ import com.amairovi.config.BackUpConfiguration;
 import com.amairovi.config.ExpenseProperties;
 import com.amairovi.config.WebConfiguration;
 import com.amairovi.web.backup.CreateBackUpHandler;
+import com.amairovi.web.backup.ListBackUpHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +32,8 @@ public class Main {
         final ObjectMapper objectMapper = new ObjectMapper();
 
         final CreateBackUpHandler createBackUpHandler = new CreateBackUpHandler(backUpService, objectMapper);
-        new WebConfiguration(createBackUpHandler).create();
+        final ListBackUpHandler listBackUpHandler = new ListBackUpHandler(backUpService, objectMapper);
+        new WebConfiguration(createBackUpHandler, listBackUpHandler).create();
         log.info("App started");
     }
 
@@ -39,9 +41,6 @@ public class Main {
         final BackUpProperties backUpProperties = new BackUpProperties();
         final String pathToBackUpDir = properties.getProperty("backup.path-to-back-up-dir");
         backUpProperties.setPathToBackUpDir(pathToBackUpDir);
-        final String backupFileDatePattern = properties.getProperty("backup.file.date-pattern");
-        backUpProperties.setBackupFileDatePattern(backupFileDatePattern);
-
         return backUpProperties;
     }
 
