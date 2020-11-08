@@ -23,4 +23,10 @@ public class DefaultExpenseService implements ExpenseService {
         return expenses;
     }
 
+    @Override
+    @NonNull
+    public void save(@NonNull final Expense expense) {
+        expenseRepository.save(expense);
+    }
+
 }

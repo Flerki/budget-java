@@ -9,4 +9,7 @@ public interface ExpenseService {
     @NonNull
     List<Expense> list();
 
+    @NonNull
+    void save(@NonNull Expense expense);
+
 }

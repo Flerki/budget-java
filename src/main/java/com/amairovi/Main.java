@@ -10,6 +10,7 @@ import com.amairovi.expense.ExpenseService;
 import com.amairovi.repository.ExpenseRepository;
 import com.amairovi.web.backup.CreateBackUpHandler;
 import com.amairovi.web.backup.ListBackUpHandler;
+import com.amairovi.web.expenses.CreateExpenseHandler;
 import com.amairovi.web.expenses.ListExpenseHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +43,9 @@ public class Main {
         final ExpenseRepository expenseRepository = expenseConfiguration.expenseRepository(expenseProperties);
         final ExpenseService expenseService = expenseConfiguration.expenseService(expenseRepository);
         final ListExpenseHandler listExpenseHandler = new ListExpenseHandler(expenseService, objectMapper);
+        final CreateExpenseHandler createExpenseHandler = new CreateExpenseHandler(expenseService, objectMapper);
 
-        new WebConfiguration(createBackUpHandler, listBackUpHandler, listExpenseHandler).create();
+        new WebConfiguration(createBackUpHandler, listBackUpHandler, createExpenseHandler, listExpenseHandler).create();
         log.info("App started");
     }
 

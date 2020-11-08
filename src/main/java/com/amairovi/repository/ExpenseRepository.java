@@ -8,4 +8,7 @@ import java.util.List;
 public interface ExpenseRepository {
     @NonNull
     List<Expense> findAll();
+
+    @NonNull
+    Expense save(@NonNull Expense expense);
 }
