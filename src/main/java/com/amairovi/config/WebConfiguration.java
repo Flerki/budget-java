@@ -2,6 +2,7 @@ package com.amairovi.config;
 
 import com.amairovi.web.backup.CreateBackUpHandler;
 import com.amairovi.web.backup.ListBackUpHandler;
+import com.amairovi.web.expenses.ListExpenseHandler;
 import io.javalin.Javalin;
 import io.javalin.core.JavalinConfig;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ public class WebConfiguration {
 
     private final CreateBackUpHandler createBackUpHandler;
     private final ListBackUpHandler listBackUpHandler;
+    private final ListExpenseHandler listExpenseHandler;
 
     public void create() {
         Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).start(7000);
@@ -22,5 +24,6 @@ public class WebConfiguration {
         app.get("/", ctx -> ctx.result("Hello World"));
         app.get("/backups", listBackUpHandler);
         app.post("/backups", createBackUpHandler);
+        app.get("/expenses", listExpenseHandler);
     }
 }
