@@ -1,0 +1,97 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Swagger Budget"
+  contact:
+    email: "mairovichaa@yandex.ru"
+basePath: "/"
+tags:
+  - name: "backups"
+    description: "Information about backup files"
+schemes:
+  - "http"
+paths:
+  /backups:
+    get:
+      tags:
+        - "backups"
+      summary: "Returns list of existing backup files"
+      description: "Returns list of existing backup files"
+      operationId: "getListOfBackups"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/BackUpInfo"
+    post:
+      tags:
+        - "backups"
+      summary: "Creates new backup file in backup folder"
+      description: "Creates new backup file in backup folder"
+      operationId: "createBackup"
+      produces:
+        - "application/json"
+      responses:
+        "201":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/BackUpInfo"
+  /expenses:
+    get:
+      tags:
+        - "expenses"
+      summary: "Returns list of expenses"
+      description: "Returns list of expenses"
+      operationId: "getListOfExpenses"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Expense"
+    post:
+      tags:
+        - "expenses"
+      summary: "Creates new expense"
+      description: "Creates new expense"
+      operationId: "createExpense"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Expense object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Expense"
+      responses:
+        "201":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Expense"
+definitions:
+  BackUpInfo:
+    type: "object"
+    properties:
+      filename:
+        type: "string"
+  Expense:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+      sum:
+        type: "string"
+      category:
+        type: "string"
+      comment:
+        type: "string"
