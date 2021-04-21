@@ -1,0 +1,11 @@
+{
+  "name": "budget-node",
+  "private": true,
+  "scripts": {
+    "back-server": "node src/app.js"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "xlsx": "^0.15.4"
+  }
+}
