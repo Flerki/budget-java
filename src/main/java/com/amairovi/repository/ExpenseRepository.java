@@ -11,4 +11,6 @@ public interface ExpenseRepository {
 
     @NonNull
     Expense save(@NonNull Expense expense);
+
+    void removeAll();
 }

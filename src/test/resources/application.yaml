@@ -1,0 +1,6 @@
+backup:
+  path-to-back-up-dir: <so far no tests on it, but it fails - need to fix>
+  file:
+    date-pattern: YYYY_MM_dd__HH_mm_ss
+expense:
+  path-to-file: <system temp will be used - check ITProto>

@@ -1,11 +1,15 @@
 package com.amairovi.web.expenses;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExpenseDto {
-    String date;
-    String sum;
-    String category;
-    String comment;
+    private String date;
+    private String sum;
+    private String category;
+    private String comment;
 }

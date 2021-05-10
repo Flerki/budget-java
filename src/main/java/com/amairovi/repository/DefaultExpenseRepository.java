@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultExpenseRepository implements ExpenseRepository {
-    public static final String EXPENSES_SHEET_NAME = "Расходы";
+    public static final int EXPENSES_SHEET_IDX = 0;
     public static final int CREATED_AT_CELL_IDX = 0;
     public static final int SUM_CELL_IDX = 1;
     public static final int CATEGORY_CELL_IDX = 2;
@@ -39,7 +39,7 @@ public class DefaultExpenseRepository implements ExpenseRepository {
     @NonNull
     public synchronized List<Expense> findAll() {
         try (final XSSFWorkbook workbook = new XSSFWorkbook(pathToExpenseFile.toFile())) {
-            final XSSFSheet expensesSheet = workbook.getSheet(EXPENSES_SHEET_NAME);
+            final XSSFSheet expensesSheet = workbook.getSheetAt(EXPENSES_SHEET_IDX);
             final int lastRowNum = expensesSheet.getLastRowNum();
 
             final ArrayList<Expense> expenses = new ArrayList<>();
@@ -79,18 +79,12 @@ public class DefaultExpenseRepository implements ExpenseRepository {
             throw new ServiceException(Error.IMPOSSIBLE_TO_CREATE_EXPENSE, "Cannot create expense", e);
         }
 
-        try (final FileOutputStream outFile = new FileOutputStream(pathToExpenseFile.toFile())) {
-            workbook.write(outFile);
-            outFile.close();
-            return expense;
-        } catch (IOException e) {
-            log.debug("Cannot save updated file", e);
-            throw new ServiceException(Error.IMPOSSIBLE_TO_CREATE_EXPENSE, "Cannot save updated file", e);
-        }
+        updateFile(workbook);
+        return expense;
     }
 
     private void addExpenseRow(final Expense expense, final XSSFWorkbook workbook) {
-        final XSSFSheet expensesSheet = workbook.getSheet(EXPENSES_SHEET_NAME);
+        final XSSFSheet expensesSheet = workbook.getSheetAt(EXPENSES_SHEET_IDX);
         final int lastRowNum = expensesSheet.getLastRowNum();
 
         final XSSFRow expenseRow = expensesSheet.createRow(lastRowNum + 1);
@@ -110,6 +104,40 @@ public class DefaultExpenseRepository implements ExpenseRepository {
         if (expense.getComment() != null) {
             final XSSFCell commentCell = expenseRow.createCell(COMMENT_AT_CELL_IDX);
             commentCell.setCellValue(expense.getComment());
+        }
+    }
+
+    @Override
+    public void removeAll() {
+        log.info("Remove all");
+        XSSFWorkbook workbook = null;
+        try (final FileInputStream inputStream = new FileInputStream(pathToExpenseFile.toFile())){
+            workbook = new XSSFWorkbook(inputStream);
+            final XSSFSheet expensesSheet = workbook.getSheetAt(EXPENSES_SHEET_IDX);
+            final int lastRowNum = expensesSheet.getLastRowNum();
+
+            int counter = 0;
+            for (int rowNumber = 1; rowNumber <= lastRowNum; rowNumber++) {
+                final XSSFRow row = expensesSheet.getRow(rowNumber);
+                expensesSheet.removeRow(row);
+                counter++;
+            }
+
+            log.debug("Amount of removed records: {}", counter);
+        } catch (IOException e) {
+            log.debug("Cannot read file", e);
+            throw new ServiceException(Error.IMPOSSIBLE_TO_REMOVE_ALL_EXPENSES, "Cannot remove all expenses", e);
+        }
+
+        updateFile(workbook);
+    }
+
+    private void updateFile(XSSFWorkbook workbook) {
+        try (final FileOutputStream outFile = new FileOutputStream(pathToExpenseFile.toFile())) {
+            workbook.write(outFile);
+        } catch (IOException e) {
+            log.debug("Cannot save updated file", e);
+            throw new ServiceException(Error.IMPOSSIBLE_TO_CREATE_EXPENSE, "Cannot save updated file", e);
         }
     }
 }

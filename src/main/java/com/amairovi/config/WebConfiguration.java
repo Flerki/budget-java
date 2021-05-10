@@ -18,8 +18,13 @@ public class WebConfiguration {
     private final CreateExpenseHandler createExpenseHandler;
     private final ListExpenseHandler listExpenseHandler;
 
+    private Javalin app;
+
     public void create() {
-        Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).start(7000);
+        if (app != null) {
+            throw new IllegalStateException("App has been already created");
+        }
+        app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).start(7000);
         app.before(ctx -> {
             log.debug("{} {}", ctx.req.getMethod() , ctx.req.getRequestURI());
         });
@@ -28,5 +33,11 @@ public class WebConfiguration {
         app.post("/backups", createBackUpHandler);
         app.get("/expenses", listExpenseHandler);
         app.post("/expenses", createExpenseHandler);
+    }
+
+    public void stop() {
+        if (app != null) {
+            app.stop();
+        }
     }
 }
