@@ -1,8 +1,9 @@
 package com.amairovi.config;
 
-import com.amairovi.back_up.BackUpProperties;
 import com.amairovi.back_up.BackUpService;
 import com.amairovi.back_up.DefaultBackUpService;
+import com.amairovi.config.properties.BackUpProperties;
+import com.amairovi.config.properties.ExpenseProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -31,7 +32,7 @@ public class BackUpConfiguration {
     public BackUpService backUpService(BackUpProperties backUpProperties, ExpenseProperties expenseProperties) {
         final String pathToBackUpDir = backUpProperties.getPathToBackUpDir();
         final Path path = Paths.get(pathToBackUpDir);
-        final Path pathToExpenseFile = Paths.get(expenseProperties.getPathToExpenseFile());
+        final Path pathToExpenseFile = Paths.get(expenseProperties.getPathToFile());
         return new DefaultBackUpService(path, pathToExpenseFile);
     }
 }

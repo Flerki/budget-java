@@ -1,5 +1,6 @@
 package com.amairovi.config;
 
+import com.amairovi.config.properties.ExpenseProperties;
 import com.amairovi.expense.DefaultExpenseService;
 import com.amairovi.expense.ExpenseService;
 import com.amairovi.repository.DefaultExpenseRepository;
@@ -11,7 +12,7 @@ import java.nio.file.Paths;
 public class ExpenseConfiguration {
 
     public ExpenseRepository expenseRepository(ExpenseProperties expenseProperties) {
-        final Path pathToExpenseFile = Paths.get(expenseProperties.getPathToExpenseFile());
+        final Path pathToExpenseFile = Paths.get(expenseProperties.getPathToFile());
         return new DefaultExpenseRepository(pathToExpenseFile);
     }
 

@@ -1,0 +1,6 @@
+backup:
+  path-to-back-up-dir: <path-to-back-up-dir>
+  file:
+    date-pattern: YYYY_MM_dd__HH_mm_ss
+expense:
+  path-to-file: <path-to-file>
