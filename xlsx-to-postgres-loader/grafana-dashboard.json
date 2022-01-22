@@ -1,0 +1,1450 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 4,
+  "iteration": 1629628562122,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 0,
+            "y": 1
+          },
+          "id": 4,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {
+              "titleSize": 18,
+              "valueSize": 18
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() AS \"time\",\n  sum(cost),\n  'over all time' AS metric\nFROM expenses",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            },
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() AS \"time\",\n  sum(cost),\n  'in range' AS metric\nFROM expenses\nwhere  $__timeFilter(occured_at)\n",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Total cost",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 3,
+            "y": 1
+          },
+          "id": 6,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {
+              "titleSize": 18,
+              "valueSize": 18
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() AS \"time\",\n  sum(cost) / count(id),\n  'over all time' AS metric\nFROM expenses",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            },
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() AS \"time\",\n  sum(cost) / count(id),\n  'in range' AS metric\nFROM expenses\nwhere  $__timeFilter(occured_at)",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Average cost",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 6,
+            "y": 1
+          },
+          "id": 12,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {
+              "titleSize": 18,
+              "valueSize": 18
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() AS \"time\",\n  count(id),\n  'over all time' as metric\nFROM expenses",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            },
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() AS \"time\",\n  count(id),\n  'in range' as metric\nFROM expenses\nwhere  $__timeFilter(occured_at)",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Amount of transaction",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 4
+          },
+          "id": 24,
+          "options": {
+            "bucketOffset": 0,
+            "bucketSize": 100,
+            "combine": false,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            }
+          },
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  occured_at AS \"time\",\n  cost,\n  'Over all time' as metric\nFROM expenses\nWHERE\n  cost <= 5000\nORDER BY 1",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cost"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "expenses",
+              "timeColumn": "occured_at",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "name": "",
+                  "params": [
+                    "value",
+                    "=",
+                    "value"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            },
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  occured_at AS \"time\",\n  cost,\n  'In range' as metric\nFROM expenses\nWHERE\n$__timeFilter(occured_at) AND\n  cost <= 5000\nORDER BY 1",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Cost <= 5000 ",
+          "type": "histogram"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 4
+          },
+          "id": 25,
+          "options": {
+            "bucketOffset": 5000,
+            "bucketSize": 20000,
+            "combine": false,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            }
+          },
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  occured_at AS \"time\",\n  cost,\n  'Over all time' as metric\nFROM expenses\nWHERE\n  cost > 5000\nORDER BY 1",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cost"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "expenses",
+              "timeColumn": "occured_at",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                },
+                {
+                  "name": "",
+                  "params": [
+                    "value",
+                    "=",
+                    "value"
+                  ],
+                  "type": "expression"
+                }
+              ]
+            },
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  occured_at AS \"time\",\n  cost,\n  'In range' as metric\nFROM expenses\nWHERE\n  $__timeFilter(occured_at) AND\n  cost > 5000\nORDER BY 1",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Cost  > 5000 ",
+          "type": "histogram"
+        }
+      ],
+      "title": "Statistics",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 10,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "rubles",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "10000": {
+                      "index": 0,
+                      "text": "Medium expense"
+                    },
+                    "50000": {
+                      "index": 1,
+                      "text": "High expense"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "light-orange",
+                    "value": 10000
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 50000.0003
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 14,
+            "w": 16,
+            "x": 0,
+            "y": 2
+          },
+          "id": 14,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT sum(cost), $__timeGroup(occured_at,'1d', 0) AS time\nFROM expenses\nwhere  $__timeFilter(occured_at)\ngroup by time\nORDER BY 2\n",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            },
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": false,
+              "rawSql": "SELECT\n  $__time(time_column),\n  value1\nFROM\n  metric_table\nWHERE\n  $__timeFilter(time_column)\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Daily expenses total",
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMin": 0,
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 16,
+            "x": 0,
+            "y": 16
+          },
+          "id": 16,
+          "options": {
+            "barWidth": 0.97,
+            "groupWidth": 0.7,
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "orientation": "auto",
+            "showValue": "auto",
+            "text": {},
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() as time,\n  sum(cost) AS value,\n  to_char(occured_at::date, 'YYYY MM/MONTH') AS metric\nFROM\n  expenses\nWHERE\n  $__timeFilter(occured_at)\nGROUP BY\n  metric\nORDER BY 3",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Monthly expenses",
+          "type": "barchart"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMin": 0,
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 16,
+            "x": 0,
+            "y": 26
+          },
+          "id": 17,
+          "options": {
+            "barWidth": 0.97,
+            "groupWidth": 0.7,
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "orientation": "auto",
+            "showValue": "always",
+            "text": {},
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() as time,\n  sum(cost) AS value,\n  to_char(occured_at::date, 'YYYY') AS metric\nFROM\n  expenses\nWHERE\n  $__timeFilter(occured_at)\nGROUP BY\n  metric\nORDER BY 3",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Annual expenses",
+          "type": "barchart"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "hidden",
+                "axisSoftMin": 0,
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 32,
+            "w": 22,
+            "x": 0,
+            "y": 35
+          },
+          "id": 26,
+          "options": {
+            "barWidth": 0.86,
+            "groupWidth": 0.7,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "orientation": "horizontal",
+            "showValue": "always",
+            "text": {
+              "valueSize": 20
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() as time,\n  sum(cost) AS value,\n  categories AS metric\nFROM\n  expenses\nGROUP BY\n  metric\nORDER BY 3",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            },
+            {
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() as time,\n  sum(cost) AS value,\n  categories AS metric\nFROM\n  expenses\nWHERE\n  $__timeFilter(occured_at)\nGROUP BY\n  metric\nORDER BY 3",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Category expenses",
+          "transformations": [
+            {
+              "id": "seriesToColumns",
+              "options": {
+                "byField": "metric"
+              }
+            }
+          ],
+          "type": "barchart"
+        }
+      ],
+      "title": "By time",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 31,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "rubles",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "line"
+                }
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "10000": {
+                      "index": 0,
+                      "text": "Medium expense"
+                    },
+                    "50000": {
+                      "index": 1,
+                      "text": "High expense"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 14,
+            "w": 16,
+            "x": 0,
+            "y": 3
+          },
+          "id": 27,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "multi"
+            }
+          },
+          "targets": [
+            {
+              "format": "time_series",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT sum(cost), $__timeGroup(occured_at,'1d', 0) AS time, categories as metric\nFROM expenses\nwhere  $__timeFilter(occured_at) AND categories IN ( ${category} ) AND cost < $maxCost\ngroup by time, categories\nORDER BY 2\n",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Daily expenses by categories=${category} and cost < $maxCost",
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMin": 0,
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 21,
+            "w": 16,
+            "x": 0,
+            "y": 17
+          },
+          "id": 28,
+          "options": {
+            "barWidth": 0.97,
+            "groupWidth": 0.7,
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "orientation": "horizontal",
+            "showValue": "auto",
+            "text": {},
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() as time,\n  sum(cost) AS value,\n  CONCAT(to_char(occured_at::date, 'YYYY MM/MONTH'), ' ', categories) AS metric\nFROM\n  expenses\nWHERE\n  $__timeFilter(occured_at) AND categories IN ( ${category} )\nGROUP BY\n  metric, categories\nORDER BY 3",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Monthly expenses  by categories=${category}",
+          "type": "barchart"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "hidden",
+                "axisSoftMin": 0,
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 16,
+            "x": 0,
+            "y": 38
+          },
+          "id": 32,
+          "options": {
+            "barWidth": 0.97,
+            "groupWidth": 0.7,
+            "legend": {
+              "calcs": [],
+              "displayMode": "hidden",
+              "placement": "bottom"
+            },
+            "orientation": "horizontal",
+            "showValue": "always",
+            "text": {},
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "8.0.6",
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\n  NOW() as time,\n  sum(cost) AS value,\n  CONCAT(to_char(occured_at::date, 'YYYY'), ' ', categories) AS metric\nFROM\n  expenses\nWHERE\n  $__timeFilter(occured_at) AND categories IN ( ${category} )\nGROUP BY\n  metric\nORDER BY 3",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Annual expenses  by categories=${category}",
+          "type": "barchart"
+        }
+      ],
+      "title": "By categories and maxCost",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "здоровье",
+            "одежда"
+          ],
+          "value": [
+            "здоровье",
+            "одежда"
+          ]
+        },
+        "datasource": null,
+        "definition": "SELECT distinct categories FROM expenses",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "category",
+        "options": [],
+        "query": "SELECT distinct categories FROM expenses",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "10000",
+          "value": "10000"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "maxCost",
+        "options": [
+          {
+            "selected": false,
+            "text": "1000",
+            "value": "1000"
+          },
+          {
+            "selected": false,
+            "text": "5000",
+            "value": "5000"
+          },
+          {
+            "selected": true,
+            "text": "10000",
+            "value": "10000"
+          },
+          {
+            "selected": false,
+            "text": "50000",
+            "value": "50000"
+          },
+          {
+            "selected": false,
+            "text": "500000",
+            "value": "500000"
+          }
+        ],
+        "query": "1000, 5000, 10000, 50000, 500000",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6M",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "postgres test-2",
+  "uid": "pR79TCm7k2",
+  "version": 8
+}

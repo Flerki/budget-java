@@ -1,2 +1,3 @@
 rootProject.name = 'budget-java'
 
+include 'xlsx-to-postgres-loader'
