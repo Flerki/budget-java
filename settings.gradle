@@ -1,3 +1,4 @@
 rootProject.name = 'budget-java'
 
 include 'xlsx-to-postgres-loader'
+include 'tinkoff-parser'
